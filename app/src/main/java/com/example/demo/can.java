@@ -57,9 +57,7 @@ b=findViewById(R.id.show);
         t8=findViewById(R.id.humidity);
         t9=findViewById(R.id.pressure);
 
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+  
                 if(s.getString("desc","").equals("clear sky")){
                     l1.setVisibility(View.VISIBLE);
                     p.setBackground(getResources().getDrawable(R.drawable.cloud2));
@@ -95,7 +93,6 @@ b=findViewById(R.id.show);
                 t8.setText("humidity : "+s.getString("humidity","")+" %");
                 t9.setText("pressure : "+s.getString("pressure",""));
                 b.setVisibility(View.GONE);
-            }
-        });
+
 
     }}
