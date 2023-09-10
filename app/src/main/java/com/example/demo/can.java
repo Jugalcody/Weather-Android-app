@@ -56,7 +56,7 @@ b=findViewById(R.id.show);
         t7=findViewById(R.id.visible);
         t8=findViewById(R.id.humidity);
         t9=findViewById(R.id.pressure);
-
+getSupportActionBar().hide();
   
                 if(s.getString("desc","").equals("clear sky")){
                     l1.setVisibility(View.VISIBLE);

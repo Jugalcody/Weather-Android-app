@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -11,9 +12,12 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,33 +50,34 @@ private NotificationManager notificationManager;
         t=findViewById(R.id.click);
         s=getSharedPreferences("weatherf1",MODE_PRIVATE);
         e=findViewById(R.id.txt);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         Notification n;
         s=getSharedPreferences("weatherf1",MODE_PRIVATE);
         String cit=s.getString("city","");
-        if(cit!="") {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                n = new Notification.Builder(this)
-                        .setSmallIcon(R.drawable.ico)
-                        .setContentText(getdata(cit))
-                        .setSubText(cit)
-                        .setChannelId(channel)
-                        .build();
-                notificationManager.createNotificationChannel(new NotificationChannel(channel, "channel 1", NotificationManager.IMPORTANCE_HIGH));
+if(cit!="") {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        n = new Notification.Builder(this)
+                .setSmallIcon(R.drawable.ico)
+                .setContentText(getdata(cit))
+                .setSubText(cit)
+                .setChannelId(channel)
+                .build();
+        notificationManager.createNotificationChannel(new NotificationChannel(channel, "channel 1", NotificationManager.IMPORTANCE_HIGH));
 
-            } else {
-                n = new Notification.Builder(this)
-                        .setSmallIcon(R.drawable.ico)
-                        .setContentText("Imp Announcement")
-                        .setSubText("hello brother")
+    } else {
+        n = new Notification.Builder(this)
+                .setSmallIcon(R.drawable.ico)
+                .setContentText(getdata(cit))
+                .setSubText(cit)
 
-                        .build();
+                .build();
 
-            }
-            notificationManager.notify(NOTIFICATION_ID, n);
-        }
+    }
+    notificationManager.notify(NOTIFICATION_ID, n);
 
+}
 
 
         t.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +123,7 @@ public String getdata(String city){
                 JSONObject wind=response.getJSONObject("wind");
                 JSONObject sys=response.getJSONObject("sys");
 
-                s.edit().putString("city",e.getText().toString()).apply();
+                s.edit().putString("city",city).apply();
                 s.edit().putString("temp",main.getString("temp")).apply();
                 s.edit().putString("max",main.getString("temp_max")).apply();
                 s.edit().putString("min",main.getString("temp_min")).apply();
@@ -153,4 +158,21 @@ public String getdata(String city){
     int fk=(int)((Float.parseFloat(s.getString("feel","")))-273.15);
 return "max temp : "+mx+" ,  min temp : "+mn+" , feels like : "+fk;
 }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.men1,menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId()==R.id.about){
+            Intent i=new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Jugalcody"));
+            startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

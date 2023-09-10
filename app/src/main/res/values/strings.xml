@@ -6,4 +6,7 @@
     <string name="_20_c">20 C</string>
     <string name="max_temp">max temp</string>
     <string name="refresh">click to refresh!</string>
+    <string name="about">about</string>
+
+    <string name="https_github_com_jugalcody">click to visit github profile</string>
 </resources>
