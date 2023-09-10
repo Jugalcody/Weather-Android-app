@@ -9,4 +9,6 @@
     <string name="about">about</string>
 
     <string name="https_github_com_jugalcody">click to visit github profile</string>
+    <string name="profile">profile</string>
+    <string name="save">save</string>
 </resources>

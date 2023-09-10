@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Music/android-studio-2022.3.1.19-linux/android-studio/Sdk/icons/material/materialicons/help/baseline_help_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Music/android-studio-2022.3.1.19-linux/android-studio/Sdk/icons/material/materialicons/people/baseline_people_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="fffefe" />
-                            <entry key="outputName" value="help" />
+                            <entry key="color" value="908c8c" />
+                            <entry key="outputName" value="baseline_people_24" />
                           </map>
                         </option>
                       </PersistentState>

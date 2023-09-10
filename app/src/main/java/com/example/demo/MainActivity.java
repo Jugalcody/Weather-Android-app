@@ -36,7 +36,7 @@ TextView t;
 String temp;
 Intent i;
 EditText e;
-SharedPreferences s;
+SharedPreferences s,s2;
 
     private final String appid="&appid=f64e37d2a555f6722b91578018799050";
     private final String url="http://api.openweathermap.org/data/2.5/weather?q=";
@@ -55,12 +55,13 @@ notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE
 
         Notification n;
         s=getSharedPreferences("weatherf1",MODE_PRIVATE);
-        String cit=s.getString("city","");
+        s2=getSharedPreferences("profile_weather",MODE_PRIVATE);
+        String cit=s2.getString("pcity","");
 if(cit!="") {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         n = new Notification.Builder(this)
                 .setSmallIcon(R.drawable.ico)
-                .setContentText(getdata(cit))
+                .setContentText(getdata(cit,false))
                 .setSubText(cit)
                 .setChannelId(channel)
                 .build();
@@ -69,7 +70,7 @@ if(cit!="") {
     } else {
         n = new Notification.Builder(this)
                 .setSmallIcon(R.drawable.ico)
-                .setContentText(getdata(cit))
+                .setContentText(getdata(cit,false))
                 .setSubText(cit)
 
                 .build();
@@ -84,12 +85,11 @@ if(cit!="") {
             @Override
             public void onClick(View view) {
                 if(!e.getText().toString().equals("")) {
-                    i = new Intent(MainActivity.this, can.class);
-                    i.putExtra("city", e.getText().toString());
+
 
                     String city=e.getText().toString();
-                    getdata(city);
-                    startActivity(i);
+                    getdata(city,true);
+
 
 
 
@@ -108,7 +108,8 @@ if(cit!="") {
 
 }
 
-public String getdata(String city){
+public String getdata(String city,boolean f){
+
 
     temp = url + city + appid;
     JsonObjectRequest j=new JsonObjectRequest(Request.Method.GET, temp, null, new Response.Listener<JSONObject>() {
@@ -134,7 +135,11 @@ public String getdata(String city){
                 s.edit().putString("feel",main.getString("feels_like")).apply();
                 s.edit().putString("humidity",main.getString("humidity")).apply();
                 s.edit().putString("pressure",main.getString("pressure")).apply();
-
+                          if (f){
+                              Intent i = new Intent(MainActivity.this, can.class);
+                              i.putExtra("city",city);
+                              startActivity(i);
+                          }
 
 
             }
@@ -172,6 +177,10 @@ return "max temp : "+mx+" ,  min temp : "+mn+" , feels like : "+fk;
         if(item.getItemId()==R.id.about){
             Intent i=new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Jugalcody"));
             startActivity(i);
+        }
+        else if(item.getItemId()==R.id.homecity){
+Intent i=new Intent(this, Profile.class);
+startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
